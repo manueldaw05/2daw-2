@@ -1,0 +1,1 @@
+const tieneLetra = (string, char) => string.indexOf(char);

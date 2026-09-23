@@ -1,0 +1,1 @@
+const devuelveUltimaLetra = (string) => string.lastIndexOf();

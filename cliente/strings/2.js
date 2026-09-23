@@ -1,0 +1,1 @@
+const devuelvePrimeraLetra = (string) => string.indexOf();
