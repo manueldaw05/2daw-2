@@ -7,73 +7,75 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <h1>Gestión de alumnos</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <form action="" method="get">
-        <button type="submit" name="opcion" value="mayorNota">
-            Alumno con mayor nota
-        </button>
-
-        <button type="submit" name="opcion" value="media">
-            Media de las notas
-        </button>
-
-        <button type="submit" name="opcion" value="mayores19">
-            Alumnos mayores de 19
-        </button>
-    </form>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="?opcion=1">Ver media <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ejercicio20.php?opcion=2">Ver nota mayor</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="ejercicio20.php?opcion=3">Ver listado de mayores</a>
+      </li>
+  </div>
+</nav>
+hola
 
 <?php
-$alumnos = [
-    ["nombre" => "Ana", "edad" => 19, "nota" => 7.5],
-    ["nombre" => "Luis", "edad" => 21, "nota" => 6.8],
-    ["nombre" => "Marta", "edad" => 18, "nota" => 9.2],
-    ["nombre" => "Carlos", "edad" => 20, "nota" => 5.4],
-];
-
-if (isset($_GET["opcion"])) {
-    $opcion = $_GET["opcion"];
-
-    if ($opcion == "mayorNota") {
-        $mayorNota = $alumnos[0]["nota"];
-        $alumnoMayorNota = $alumnos[0]["nombre"];
-
-        foreach ($alumnos as $alumno) {
-            if ($alumno["nota"] > $mayorNota) {
-                $mayorNota = $alumno["nota"];
-                $alumnoMayorNota = $alumno["nombre"];
-            }
-        }
-
-        echo "<h2>Alumno con mayor nota</h2>";
-        echo "<p>$alumnoMayorNota tiene la mayor nota: $mayorNota</p>";
-    }
-
-    if ($opcion == "media") {
-        $suma = 0;
-
-        foreach ($alumnos as $alumno) {
-            $suma += $alumno["nota"];
-        }
-
-        $media = $suma / count($alumnos);
-
-        echo "<h2>Media de las notas</h2>";
-        echo "<p>La nota media de la clase es: $media</p>";
-    }
-
-    if ($opcion == "mayores19") {
-        echo "<h2>Alumnos mayores de 19 años</h2>";
-
-        foreach ($alumnos as $alumno) {
-
-            if ($alumno["edad"] > 19) {
-                echo "<p>- " . $alumno["nombre"] . "</p>";
-            }
-        }
-    }
-}
+  $selectedInterests = isset($_POST["intereses[]"]) ? $_POST["intereses[]"] : "";
 ?>
 
+<form method ="POST"> 
+<p>Intereses (selecciona los que apliquen):</p>
+
+<label><input type="checkbox" name="intereses[]" value="tecnologia" <?php if ($selectedInterests == array_search("tecnologia", $selectedInterests)) echo "selected"; ?>>Tecnología</label>
+<br>
+<label><input type="checkbox" name="intereses[]" value="deporte" <?php if ($selectedInterests == array_search("deporte", $selectedInterests)) echo "selected"; ?>> Deporte</label>
+<br>
+<label><input type="checkbox" name="intereses[]" value="lectura" <?php if ($selectedInterests == array_search("lectura", $selectedInterests)) echo "selected"; ?>> Lectura</label>
+<br>
+<label><input type="checkbox" name="intereses[]" value="viajes" <?php if ($selectedInterests == array_search("viajes", $selectedInterests)) echo "selected"; ?>> Viajes</label>
+<br><br>
+
+<?php
+$selectedGender = isset($_POST["genero"]) ? $_POST["genero"] : "";
+?>
+<p>Género:</p>
+<label><input type="radio" name="genero" value="hombre" <?php if ($selectedGender == "hombre") echo "selected"; ?>> Hombre</label><br>
+<label><input type="radio" name="genero" value="mujer" <?php if ($selectedGender == "mujer") echo "selected"; ?>> Mujer</label><br>
+<label><input type="radio" name="genero" value="otro" <?php if ($selectedGender == "otro") echo "selected"; ?>> Otro</label><br><br>
+
+<?php
+$selectedYear = isset($_POST["curso"]) ? $_POST["curso"] : "";
+?>
+<p>Curso:</p>
+<label><input type="radio" name="curso" value="primero" <?php if ($selectedYear == "primero") echo "selected"; ?>> 1º Daw</label><br>
+<label><input type="radio" name="curso" value="segundo" <?php if ($selectedYear == "segundo") echo "selected"; ?>> 2º Daw</label><br>
+<label><input type="radio" name="curso" value="otro" <?php if ($selectedYear == "otro") echo "selected"; ?>> Otro</label><br><br>
+
+<label>
+País:
+<?php
+  $selectedCountry = isset($_POST["pais"]) ? $_POST["pais"]: "";
+?>
+<select name="pais">
+
+  <option value="es" <?php if ($selectedCountry== "es") echo "selected";?> >España</option>
+  <option value="mx" <?php if ($selectedCountry== "mx") echo "selected";?> >México</option>
+  <option value="ar" <?php if ($selectedCountry== "ar") echo "selected";?> >Argentina</option>
+</select>
+</label><br><br>
+
+<input type="submit">
+
+
+</form>
 </body>
 </html>
