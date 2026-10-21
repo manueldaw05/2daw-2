@@ -38,7 +38,7 @@ function addResult(phrase) {
 
     li.textContent = `${phrase} → ${acronym}`;
 
-    if (phrase.trim().split(/\s+/).length > 3) {
+    if (phrase.trim().split(" ").length > 3) {
         li.classList.add("larga");
     }
 
@@ -55,11 +55,9 @@ submitButton.addEventListener("click", () => {
     addResult(phrase);
 
     phraseInput.value = "";
-    phraseInput.focus();
 });
 
 resetButton.addEventListener("click", () => {
     results.innerHTML = "";
     phraseInput.value = "";
-    phraseInput.focus();
 });

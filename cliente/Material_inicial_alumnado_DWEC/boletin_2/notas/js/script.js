@@ -86,14 +86,12 @@ const renderStudents = () => {
         button.textContent = "Añadir nota";
 
         button.addEventListener("click", () => {
-            const grade = Number(
+            const grade = 
                 prompt(
                     `Introduce una nota para ${student.name}`
-                )
-            );
+                );
 
             if (
-                !isNaN(grade) &&
                 grade >= 0 &&
                 grade <= 10
             ) {

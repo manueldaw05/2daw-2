@@ -101,8 +101,6 @@ form.addEventListener("submit", (e) => {
   addItem(name, quantity, price);
 
   renderTable();
-
-  form.reset();
 });
 
 updateTotalItems();

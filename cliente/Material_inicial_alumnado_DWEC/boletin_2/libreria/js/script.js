@@ -122,9 +122,7 @@ addBookForm.addEventListener("submit", (event) => {
 
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
-    const price = Number(
-        document.getElementById("price").value
-    );
+    const price = document.getElementById("price").value;
     const category =
         document.getElementById("category").value;
 
