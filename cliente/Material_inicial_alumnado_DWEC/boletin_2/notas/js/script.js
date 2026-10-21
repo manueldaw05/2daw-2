@@ -1,71 +1,132 @@
 // Copia aquí las funciones de notas del boletín 1.
-// TODO: representar alumnos y notas en #students.
-// TODO: alta de alumno, botón/formulario para añadir nota, media y clase sobresaliente.
 const gradebook = {
-    Ana: [8, 9, 10],
-    Luis: [6, 7, 8],
-    Marta: [10, 9, 9]
+    students: [
+        {
+            name: 'Ana',
+            grades: [8, 7, 9],
+            average: 0
+        },
+        {
+            name: 'Luis',
+            grades: [6, 8, 6],
+            average: 0
+        },
+        {
+            name: 'Maria',
+            grades: [9, 10, 9],
+            average: 0
+        }
+    ]
 };
+
+const calculateAverage = ({ students }) => {
+    students.forEach(student => {
+        const sum = student.grades.reduce(
+            (total, grade) => total + grade,
+            0
+        );
+
+        student.average = student.grades.length
+            ? sum / student.grades.length
+            : 0;
+    });
+};
+
+const addStudent = (name) => {
+    gradebook.students.push({
+        name,
+        grades: [],
+        average: 0
+    });
+};
+
+const addGrade = (studentName, grade) => {
+    const student = gradebook.students.find(
+        student => student.name === studentName
+    );
+
+    student.grades.push(grade);
+
+    const sum = student.grades.reduce(
+        (total, g) => total + g,
+        0
+    );
+
+    student.average = sum / student.grades.length;
+};
+
 
 const studentsList = document.getElementById("students");
 const addStudentForm = document.getElementById("addStudent");
 
-function calculateAverage(grades) {
-    if (grades.length === 0) {
-        return 0;
-    }
-
-    const sum = grades.reduce((total, grade) => total + grade, 0);
-    return (sum / grades.length).toFixed(2);
-}
-
-function renderStudents() {
+const renderStudents = () => {
     studentsList.innerHTML = "";
 
-    for (const student in gradebook) {
-        const average = calculateAverage(gradebook[student]);
+    calculateAverage(gradebook);
 
+    gradebook.students.forEach(student => {
         const li = document.createElement("li");
 
-        if (average > 8) {
+        if (student.average > 8) {
             li.classList.add("outstanding");
         }
 
-        li.innerHTML = `
-            <strong>${student}</strong><br>
-            Notas: ${gradebook[student].join(", ")}<br>
-            Promedio: ${average}<br>
-            <button type="button">Añadir nota</button>
-        `;
+        const name = document.createElement("strong");
+        name.textContent = student.name;
 
-        const addGradeButton = li.querySelector("button");
+        const grades = document.createElement("p");
+        grades.textContent =
+            "Notas: " + student.grades.join(", ");
 
-        addGradeButton.addEventListener("click", () => {
-            const newGrade = Number(
-                prompt(`Introduce una nota para ${student}`)
+        const average = document.createElement("p");
+        average.textContent =
+            "Promedio: " + student.average.toFixed(2);
+
+        const button = document.createElement("button");
+        button.textContent = "Añadir nota";
+
+        button.addEventListener("click", () => {
+            const grade = Number(
+                prompt(
+                    `Introduce una nota para ${student.name}`
+                )
             );
 
-            if (!isNaN(newGrade) && newGrade >= 0 && newGrade <= 10) {
-                gradebook[student].push(newGrade);
+            if (
+                !isNaN(grade) &&
+                grade >= 0 &&
+                grade <= 10
+            ) {
+                addGrade(student.name, grade);
                 renderStudents();
             }
         });
 
+        li.appendChild(name);
+        li.appendChild(grades);
+        li.appendChild(average);
+        li.appendChild(button);
+
         studentsList.appendChild(li);
-    }
-}
+    });
+};
 
 addStudentForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const studentName =
-        document.getElementById("studentName").value;
+        document.getElementById("studentName").value.trim();
 
-    if (!gradebook[studentName]) {
-        gradebook[studentName] = [];
+    if (
+        studentName &&
+        !gradebook.students.some(
+            student => student.name === studentName
+        )
+    ) {
+        addStudent(studentName);
+        renderStudents();
     }
 
-    renderStudents();
     addStudentForm.reset();
 });
 

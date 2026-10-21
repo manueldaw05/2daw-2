@@ -1,42 +1,64 @@
-// TODO: leer frase, crear acrónimo, añadir un li a #results.
-// TODO: marcar las frases de más de 3 palabras con classList.add("larga").
-// TODO: limpiar lista y campo de texto.
+// Copia aquí las funciones de notas del boletín 1.
+const phrases = [
+    { phrase: "Hyper Text Markup Language" },
+    { phrase: "Cascading Style Sheets" },
+    { phrase: "Object Oriented Programming" }
+];
+
+function createAcronym(phrase) {
+    return phrase
+        .split(" ")
+        .map(word => word[0].toUpperCase())
+        .join("");
+}
+
+const phrasesWithAcronyms = phrases.map(item => ({
+    ...item,
+    acronym: createAcronym(item.phrase)
+}));
+
+console.log(phrasesWithAcronyms);
+
+const filteredPhrases = phrasesWithAcronyms.filter(
+    item => item.phrase.split(" ").length > 3
+);
+
+console.log(filteredPhrases);
+
+
 const phraseInput = document.getElementById("phrase");
-const generateBtn = document.getElementById("submit");
-const resetBtn = document.getElementById("reset");
+const submitButton = document.getElementById("submit");
+const resetButton = document.getElementById("reset");
 const results = document.getElementById("results");
 
-// Generar acrónimo
-generateBtn.addEventListener("click", () => {
-    
+function addResult(phrase) {
+    const acronym = createAcronym(phrase);
+
+    const li = document.createElement("li");
+
+    li.textContent = `${phrase} → ${acronym}`;
+
+    if (phrase.trim().split(/\s+/).length > 3) {
+        li.classList.add("larga");
+    }
+
+    results.appendChild(li);
+}
+
+submitButton.addEventListener("click", () => {
     const phrase = phraseInput.value.trim();
 
     if (phrase === "") {
         return;
     }
 
-    const words = phrase.split(/\s+/);
-
-    const acronym = words
-        .map(word => word[0].toUpperCase())
-        .join("");
-
-    const li = document.createElement("li");
-    li.textContent = `${phrase} → ${acronym}`;
-
-    // Destacar frases largas
-    if (words.length > 3) {
-        li.classList.add("long-phrase");
-    }
-
-    results.appendChild(li);
+    addResult(phrase);
 
     phraseInput.value = "";
     phraseInput.focus();
 });
 
-// Limpiar lista y formulario
-resetBtn.addEventListener("click", () => {
+resetButton.addEventListener("click", () => {
     results.innerHTML = "";
     phraseInput.value = "";
     phraseInput.focus();

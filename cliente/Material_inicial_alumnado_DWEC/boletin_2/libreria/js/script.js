@@ -1,74 +1,120 @@
-// Copia aquí las funciones de librería del boletín 1.
-// TODO: representar tabla, añadir, eliminar, filtrar y ordenar.
-// TODO: actualizar opciones del selector si aparecen nuevas categorías.
-const bookStore = [
-    {
-        title: "El Quijote",
-        author: "Miguel de Cervantes",
-        price: 25,
-        category: "Fiction"
-    },
-    {
-        title: "Sapiens",
-        author: "Yuval Noah Harari",
-        price: 20,
-        category: "Non-fiction"
-    },
-    {
-        title: "1984",
-        author: "George Orwell",
-        price: 15,
-        category: "Fiction"
+// Copia aquí las funciones de notas del boletín 1.
+const bookStore = {
+    books: [
+        {
+            title: "1984",
+            author: "George Orwell",
+            price: 15,
+            category: "Fiction"
+        },
+        {
+            title: "Sapiens",
+            author: "Yuval Noah Harari",
+            price: 20,
+            category: "Non-fiction"
+        }
+    ]
+};
+
+const addBook = (title, author, price, category) =>
+    bookStore.books.push({
+        title,
+        author,
+        price,
+        category
+    });
+
+const removeBook = (title) => {
+    bookStore.books = bookStore.books.filter(
+        book => book.title !== title
+    );
+};
+
+const getBooksByCategory = (category) => {
+    if (category === "") {
+        return bookStore.books;
     }
-];
+
+    return bookStore.books.filter(
+        book => book.category === category
+    );
+};
+
 
 const booksTable = document.getElementById("books");
 const addBookForm = document.getElementById("addBook");
 const categoryFilter = document.getElementById("categoryFilter");
+const ascButton = document.getElementById("asc");
+const descButton = document.getElementById("desc");
 
-function renderBooks(books = bookStore) {
-    booksTable.innerHTML = "";
+let currentBooks = [...bookStore.books];
 
-    books.forEach((book, index) => {
-        const row = document.createElement("tr");
+function updateCategories() {
+    const currentValue = categoryFilter.value;
 
-        row.innerHTML = `
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>${book.price.toFixed(2)} €</td>
-            <td>${book.category}</td>
-            <td>
-                <button type="button">Eliminar</button>
-            </td>
-        `;
+    categoryFilter.innerHTML =
+        '<option value="">Todas</option>';
 
-        const deleteButton = row.querySelector("button");
+    const categories = [
+        ...new Set(
+            bookStore.books.map(book => book.category)
+        )
+    ];
 
-        deleteButton.addEventListener("click", () => {
-            const originalIndex = bookStore.indexOf(book);
-
-            if (originalIndex !== -1) {
-                bookStore.splice(originalIndex, 1);
-                applyFilter();
-            }
-        });
-
-        booksTable.appendChild(row);
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
     });
+
+    categoryFilter.value = currentValue;
 }
 
-function applyFilter() {
-    const category = categoryFilter.value;
+function renderBooks(books) {
+    booksTable.innerHTML = "";
 
-    if (category === "") {
-        renderBooks();
-    } else {
-        const filteredBooks = bookStore.filter(
-            book => book.category === category
-        );
+    books.forEach(book => {
+        const tr = document.createElement("tr");
 
-        renderBooks(filteredBooks);
-    }
+        const tdTitle = document.createElement("td");
+        tdTitle.textContent = book.title;
+
+        const tdAuthor = document.createElement("td");
+        tdAuthor.textContent = book.author;
+
+        const tdPrice = document.createElement("td");
+        tdPrice.textContent = book.price + " €";
+
+        const tdCategory = document.createElement("td");
+        tdCategory.textContent = book.category;
+
+        const tdActions = document.createElement("td");
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Eliminar";
+
+        deleteButton.addEventListener("click", () => {
+            removeBook(book.title);
+
+            currentBooks = getBooksByCategory(
+                categoryFilter.value
+            );
+
+            renderBooks(currentBooks);
+            updateCategories();
+        });
+
+        tdActions.appendChild(deleteButton);
+
+        tr.appendChild(tdTitle);
+        tr.appendChild(tdAuthor);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdCategory);
+        tr.appendChild(tdActions);
+
+        booksTable.appendChild(tr);
+    });
 }
 
 addBookForm.addEventListener("submit", (event) => {
@@ -76,36 +122,47 @@ addBookForm.addEventListener("submit", (event) => {
 
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
-    const price = Number(document.getElementById("price").value);
-    const category = document.getElementById("category").value;
+    const price = Number(
+        document.getElementById("price").value
+    );
+    const category =
+        document.getElementById("category").value;
 
-    bookStore.push({
-        title,
-        author,
-        price,
-        category
-    });
+    addBook(title, author, price, category);
 
-    applyFilter();
+    currentBooks = getBooksByCategory(
+        categoryFilter.value
+    );
+
+    renderBooks(currentBooks);
+    updateCategories();
+
     addBookForm.reset();
 });
 
-categoryFilter.addEventListener("change", applyFilter);
+categoryFilter.addEventListener("change", () => {
+    currentBooks = getBooksByCategory(
+        categoryFilter.value
+    );
 
-document.getElementById("asc").addEventListener("click", () => {
-    const sortedBooks = [...bookStore].sort(
+    renderBooks(currentBooks);
+});
+
+ascButton.addEventListener("click", () => {
+    currentBooks.sort(
         (a, b) => a.price - b.price
     );
 
-    renderBooks(sortedBooks);
+    renderBooks(currentBooks);
 });
 
-document.getElementById("desc").addEventListener("click", () => {
-    const sortedBooks = [...bookStore].sort(
+descButton.addEventListener("click", () => {
+    currentBooks.sort(
         (a, b) => b.price - a.price
     );
 
-    renderBooks(sortedBooks);
+    renderBooks(currentBooks);
 });
 
-renderBooks();
+updateCategories();
+renderBooks(bookStore.books);
