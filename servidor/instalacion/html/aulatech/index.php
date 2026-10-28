@@ -41,7 +41,11 @@
 
 <body>
 
-    <?php include __DIR__ . '/menu/menu.php'; ?>
+    <?php 
+    include __DIR__ . '/menu/menu.php';
+    include __DIR__ . '/db/connection.php';
+    include __DIR__ . '/user/userRepository.php';
+    ?>
 
     <!-- Hero -->
     <section class="hero d-flex align-items-center">

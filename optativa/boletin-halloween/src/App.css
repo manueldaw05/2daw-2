@@ -1,0 +1,72 @@
+.halloween-container {
+background-color: #121016;
+color: #f39c12;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+padding: 2rem;
+min-height: 100vh;
+}
+.treat-counter {
+background: #23192d;
+border: 2px solid #e67e22;
+border-radius: 8px;
+padding: 1rem;
+margin-bottom: 1.5rem;
+font-size: 1.3rem;
+text-align: center;
+box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
+}
+.houses-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+gap: 1.5rem;
+}
+.house-card {
+background: #1c1524;
+border: 1px solid #3d2c52;
+border-radius: 8px;
+padding: 1rem;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.house-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+}
+.abandoned {
+opacity: 0.6;
+filter: grayscale(0.8);
+border-style: dashed;
+}
+.badge {
+display: inline-block;
+padding: 0.25rem 0.5rem;
+border-radius: 4px;
+font-size: 0.85rem;
+margin-top: 0.5rem;
+}
+.badge-warning {
+background-color: #d35400;
+color: #fff;
+}
+.badge-empty {
+background-color: #7f1d1d;
+color: #fca5a5;
+}
+.spooky-btn {
+background: #8e44ad;
+color: #fff;
+border: none;
+padding: 0.6rem 1rem;
+margin-top: 1rem;
+border-radius: 4px;
+cursor: pointer;
+width: 100%;
+font-weight: bold;
+}
+.spooky-btn:hover:not(:disabled) {
+background: #9b59b6;
+}
+.spooky-btn:disabled {
+background: #4a3b5a;
+cursor: not-allowed;
+opacity: 0.6;
+}

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/db/config.php';
-include __DIR__ . '/user/userRepository.php';
+require_once __DIR__ . '/db/connection.php';
+require_once __DIR__ . '/user/userRepository.php';
 
 $error = "";
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
