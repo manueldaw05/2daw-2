@@ -70,3 +70,72 @@ background: #4a3b5a;
 cursor: not-allowed;
 opacity: 0.6;
 }
+
+.grimoire-app {
+background-color: #0d0a14;
+color: #e0d6eb;
+padding: 2rem;
+font-family: 'Courier New', Courier, monospace;
+}
+.grimoire-controls {
+display: flex;
+gap: 1rem;
+margin-bottom: 2rem;
+flex-wrap: wrap;
+}
+.spooky-input, .spooky-select {
+background: #1b1429;
+border: 1px solid #7d44ad;
+color: #2ecc71;
+padding: 0.6rem;
+border-radius: 4px;
+font-size: 1rem;
+flex: 1;
+}
+.spooky-input:focus, .spooky-select:focus {
+outline: none;
+box-shadow: 0 0 8px #9b59b6;
+}
+.potion-form {
+background: #171022;
+border: 1px dashed #9b59b6;
+padding: 1.5rem;
+margin-bottom: 2rem;
+border-radius: 8px;
+}
+.potion-card {
+background: #181224;
+border-left: 5px solid #2ecc71;
+padding: 1rem;
+margin-bottom: 1rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.danger-segura { border-left-color: #2ecc71; }
+.danger-peligrosa { border-left-color: #e67e22; }
+.danger-mortal {
+border-left-color: #e74c3c;
+background: #220e14;
+}
+.warning-mortal {
+color: #e74c3c;
+font-weight: bold;
+animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.4; }
+}
+.delete-btn {
+background: transparent;
+border: 1px solid #e74c3c;
+color: #e74c3c;
+padding: 0.3rem 0.6rem;
+border-radius: 4px;
+cursor: pointer;
+}
+.delete-btn:hover {
+background: #e74c3c;
+color: #fff;
+}

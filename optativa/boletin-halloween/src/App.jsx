@@ -1,4 +1,5 @@
 import './App.css'
+import Grimorio from './Grimorio'
 import Mapa from './Mapa'
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
   return (
     <>
       <Mapa />
+      <Grimorio />
     </>
   )
 }
