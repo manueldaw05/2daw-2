@@ -41,7 +41,7 @@ $isAdmin = $loggedIn && $_SESSION['role'] === 'admin';
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mis datos</a>
+                        <a class="nav-link" href="data.php">Mis datos</a>
                     </li>
 
                     <?php
@@ -60,15 +60,16 @@ $isAdmin = $loggedIn && $_SESSION['role'] === 'admin';
                     }
                     ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">
-                            Cerrar sesión
-                        </a>
-                    </li>
-
                     <li class="nav-item ms-lg-3">
                         <a href="#" class="btn btn-outline-light">
                             🛒 Carrito
+                        </a>
+                    </li>
+
+                     <li class="nav-item">
+                        <a href="logout.php" class="btn btn-outline-danger ms-2">
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            Cerrar sesión
                         </a>
                     </li>
 
