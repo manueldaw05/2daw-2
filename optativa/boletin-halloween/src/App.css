@@ -139,3 +139,77 @@ cursor: pointer;
 background: #e74c3c;
 color: #fff;
 }
+
+.costume-app {
+background-color: #0b090f;
+color: #d1c7e0;
+padding: 2rem;
+min-height: 100vh;
+transition: all 0.3s ease;
+}
+/* Modo Iluminación de Calabaza */
+.costume-app.pumpkin-mode {
+background-color: #240f00;
+color: #ffd4a3;
+}
+.costume-app.pumpkin-mode .contestant-card {
+background: #381900;
+border-color: #ff7700;
+}
+.contestant-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 1.5rem;
+margin-top: 1.5rem;
+}
+.contestant-card {
+background: #14111d;
+border: 2px solid #2d243d;
+border-radius: 12px;
+padding: 1.5rem;
+position: relative;
+}
+.leader-card {
+border-color: #f1c40f !important;
+box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+}
+.leader-banner {
+position: absolute;
+top: -12px;
+right: 12px;
+background: #f1c40f;
+color: #121016;
+font-weight: bold;
+padding: 0.2rem 0.6rem;
+border-radius: 10px;
+font-size: 0.8rem;
+}
+.tags-list {
+display: flex;
+gap: 0.5rem;
+flex-wrap: wrap;
+margin: 0.8rem 0;
+padding: 0;
+list-style: none;
+}
+.tag-pill {
+background: #2f2142;
+color: #bb86fc;
+font-size: 0.75rem;
+padding: 0.2rem 0.5rem;
+border-radius: 12px;
+}
+.vote-btn {
+background: #ff5722;
+color: #fff;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 6px;
+font-size: 0.95rem;
+cursor: pointer;
+font-weight: bold;
+width: 100%;
+}
+.vote-btn:hover {
+background: #e64a19;
+}

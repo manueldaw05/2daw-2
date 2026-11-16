@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 const initialHouses = [
@@ -8,10 +9,9 @@ const initialHouses = [
     { id: 'h5', address: 'Pasaje del Espanto, 7', candies: 8, isAbandoned: false },
 ];
 
-
-
 function Mapa() {
     const [caramelo, setCaramelo] = useState(0);
+
     function modifyCaramel(id) {
         initialHouses.map(house => {
             if (house.id === id) {
@@ -20,47 +20,54 @@ function Mapa() {
                     setCaramelo(caramelo + 1);
                 }
             }
-
         })
     }
 
     return (
-        <div>
-            <h1>
-                tenemos {caramelo} caramelos
+        <div className="halloween-container">
+
+            <h1 className="treat-counter">
+                🎃 Tenemos {caramelo} caramelos 🍬
             </h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Direccion
-                        </th>
-                        <th>
-                            Caramelos
-                        </th>
-                        <th>
-                            ¿Está abandonada?
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {initialHouses.map(element => {
-                        return (
-                            <tr>
-                                <td>
-                                    {element.address}
-                                </td>
-                                <td>
-                                    {element.candies == 0 ? "sin caramelos" : element.candies < 3 ? "¡Se están agotando!" : element.candies}
-                                </td>
-                                <td>
-                                    {element.isAbandoned ? "️Desierta (No tocar el timbre)" : <button onClick={() => { modifyCaramel(element.id) }}>¡Truco o trato!</button>}
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+
+            <div className="houses-grid">
+                {initialHouses.map(element => {
+                    return (
+                        <div className={`house-card ${element.isAbandoned ? "abandoned" : ""}`}>
+
+                            <h2>🏚️ {element.address}</h2>
+
+                            <p>
+                                <strong>Caramelos:</strong>
+                                {element.candies == 0
+                                    ? <span className="badge badge-empty">Sin caramelos</span>
+                                    : element.candies < 3
+                                        ? <span className="badge badge-warning">¡Se están agotando!</span>
+                                        : element.candies
+                                }
+                            </p>
+
+                            <p>
+                                <strong>¿Está abandonada?</strong>
+                                {element.isAbandoned
+                                    ? " Desierta (No tocar el timbre)"
+                                    : " No, está habitada"}
+                            </p>
+
+                            {!element.isAbandoned && (
+                                <button
+                                    className="spooky-btn"
+                                    onClick={() => { modifyCaramel(element.id) }}
+                                >
+                                    ¡Truco o trato!
+                                </button>
+                            )}
+
+                        </div>
+                    )
+                })}
+            </div>
+
         </div>
     )
 }
