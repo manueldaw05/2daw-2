@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX con callbacks</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <h1>Publicaciones por usuario</h1>
+
+    <form id="form-show">
+
+        <label for="id-usuario">ID del usuario:</label>
+
+        <input
+            type="number"
+            id="id-usuario"
+            min="1"
+            required
+        >
+
+        <button type="submit">Buscar</button>
+        <button id="mostrar-titulos">Mostrar solo títulos</button>
+
+    </form>
+
+    <p>
+        Número de publicaciones:
+        <span id="num-posts">0</span>
+    </p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Contenido</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabla-posts"></tbody>
+    </table>
+
+</body>
+</html>
