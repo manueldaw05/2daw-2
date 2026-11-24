@@ -1,0 +1,24 @@
+{
+  "productos": [
+    {
+      "nombre": "Portátil Lenovo IdeaPad",
+      "precio": 799.99
+    },
+    {
+      "nombre": "Ratón Inalámbrico Logitech",
+      "precio": 29.95
+    },
+    {
+      "nombre": "Monitor Samsung 27\"",
+      "precio": 249.50
+    },
+    {
+      "nombre": "Teclado Mecánico Redragon",
+      "precio": 59.99
+    },
+    {
+      "nombre": "Auriculares Sony WH-CH520",
+      "precio": 49.90
+    }
+  ]
+}
